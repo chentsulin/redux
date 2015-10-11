@@ -1,0 +1,828 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>遷移到 Redux | Redux</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.4.3">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-edit-link/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-prism/prism.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../../docs/recipes/ReducingBoilerplate.html" />
+    
+    
+    <link rel="prev" href="../../docs/recipes/index.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="4.1" data-basepath="../.." data-revision="Sun Oct 11 2015 21:51:27 GMT+0800 (CST)">
+    
+
+<div class="book-summary">
+    <div class="book-search" role="search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Read Me
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="docs/introduction/index.html">
+            
+                
+                    <a href="../../docs/introduction/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        介紹
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="docs/introduction/Motivation.html">
+            
+                
+                    <a href="../../docs/introduction/Motivation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        動機
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="docs/introduction/ThreePrinciples.html">
+            
+                
+                    <a href="../../docs/introduction/ThreePrinciples.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        三大原則
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="docs/introduction/PriorArt.html">
+            
+                
+                    <a href="../../docs/introduction/PriorArt.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        先前技術
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="docs/introduction/Ecosystem.html">
+            
+                
+                    <a href="../../docs/introduction/Ecosystem.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        生態系
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="docs/introduction/Examples.html">
+            
+                
+                    <a href="../../docs/introduction/Examples.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        範例
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="docs/basics/index.html">
+            
+                
+                    <a href="../../docs/basics/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        基礎
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="docs/basics/Actions.html">
+            
+                
+                    <a href="../../docs/basics/Actions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Actions
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="docs/basics/Reducers.html">
+            
+                
+                    <a href="../../docs/basics/Reducers.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Reducers
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="docs/basics/Store.html">
+            
+                
+                    <a href="../../docs/basics/Store.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        Store
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="docs/basics/DataFlow.html">
+            
+                
+                    <a href="../../docs/basics/DataFlow.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        資料流
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="docs/basics/UsageWithReact.html">
+            
+                
+                    <a href="../../docs/basics/UsageWithReact.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        搭配 React 運用
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="docs/basics/ExampleTodoList.html">
+            
+                
+                    <a href="../../docs/basics/ExampleTodoList.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.</b>
+                        
+                        範例：Todo 清單
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="docs/advanced/index.html">
+            
+                
+                    <a href="../../docs/advanced/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        進階
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="docs/advanced/AsyncActions.html">
+            
+                
+                    <a href="../../docs/advanced/AsyncActions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Async Actions
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="docs/advanced/AsyncFlow.html">
+            
+                
+                    <a href="../../docs/advanced/AsyncFlow.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        非同步資料流
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="docs/advanced/Middleware.html">
+            
+                
+                    <a href="../../docs/advanced/Middleware.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Middleware
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" >
+            
+            <span><b>3.4.</b> Usage with React Router</span>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="docs/advanced/ExampleRedditAPI.html">
+            
+                
+                    <a href="../../docs/advanced/ExampleRedditAPI.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        範例：Reddit API
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" >
+            
+            <span><b>3.6.</b> Next Steps</span>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="docs/recipes/index.html">
+            
+                
+                    <a href="../../docs/recipes/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Recipes
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="4.1" data-path="docs/recipes/MigratingToRedux.html">
+            
+                
+                    <a href="../../docs/recipes/MigratingToRedux.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        遷移到 Redux
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="docs/recipes/ReducingBoilerplate.html">
+            
+                
+                    <a href="../../docs/recipes/ReducingBoilerplate.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        減少 Boilerplate
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="docs/recipes/ServerRendering.html">
+            
+                
+                    <a href="../../docs/recipes/ServerRendering.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        伺服器 Rendering
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="docs/recipes/WritingTests.html">
+            
+                
+                    <a href="../../docs/recipes/WritingTests.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        撰寫測試
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="docs/recipes/ComputingDerivedData.html">
+            
+                
+                    <a href="../../docs/recipes/ComputingDerivedData.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        計算衍生資料
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="docs/recipes/ImplementingUndoHistory.html">
+            
+                
+                    <a href="../../docs/recipes/ImplementingUndoHistory.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.6.</b>
+                        
+                        實作 Undo 歷史
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="docs/Troubleshooting.html">
+            
+                
+                    <a href="../../docs/Troubleshooting.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        疑難排解
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="docs/Glossary.html">
+            
+                
+                    <a href="../../docs/Glossary.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        術語表
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="docs/api/index.html">
+            
+                
+                    <a href="../../docs/api/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        API 參考
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1" data-path="docs/api/createStore.html">
+            
+                
+                    <a href="../../docs/api/createStore.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.1.</b>
+                        
+                        createStore
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="docs/api/Store.html">
+            
+                
+                    <a href="../../docs/api/Store.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.2.</b>
+                        
+                        Store
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="docs/api/combineReducers.html">
+            
+                
+                    <a href="../../docs/api/combineReducers.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.3.</b>
+                        
+                        combineReducers
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="docs/api/applyMiddleware.html">
+            
+                
+                    <a href="../../docs/api/applyMiddleware.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.4.</b>
+                        
+                        applyMiddleware
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="docs/api/bindActionCreators.html">
+            
+                
+                    <a href="../../docs/api/bindActionCreators.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.5.</b>
+                        
+                        bindActionCreators
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.6" data-path="docs/api/compose.html">
+            
+                
+                    <a href="../../docs/api/compose.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.6.</b>
+                        
+                        compose
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="CHANGELOG.html">
+            
+                
+                    <a href="../../CHANGELOG.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        變更日誌
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9" data-path="PATRONS.html">
+            
+                
+                    <a href="../../PATRONS.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.</b>
+                        
+                        贊助者
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Google"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../../" >Redux</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <a id="edit-link" href="https://github.com/rackt/redux/tree/master/docs/recipes/MigratingToRedux.md" class="btn fa fa-edit pull-left">&nbsp;&nbsp;Edit This Page</a><h1 id="%E9%81%B7%E7%A7%BB%E5%88%B0-redux">&#x9077;&#x79FB;&#x5230; Redux</h1>
+<p>Redux &#x4E0D;&#x662F;&#x4E00;&#x500B;&#x6574;&#x9AD4;&#x7684;&#x6846;&#x67B6;&#xFF0C;&#x800C;&#x662F;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x4ECB;&#x9762;&#x548C;<a href="../api/index.html">&#x4E00;&#x4E9B;&#x53EF;&#x4EE5;&#x8B93;&#x5B83;&#x5011;&#x4E00;&#x8D77;&#x5408;&#x4F5C;&#x7684; functions</a>&#x3002;&#x751A;&#x81F3;&#x4F60;&#x5927;&#x591A;&#x6578;&#x7684;&#x300C;Redux &#x7A0B;&#x5F0F;&#x78BC;&#x300D;&#x90FD;&#x4E0D;&#x6703;&#x7528;&#x5230; Redux APIs&#xFF0C;&#x56E0;&#x70BA;&#x4F60;&#x5927;&#x90E8;&#x4EFD;&#x7684;&#x6642;&#x9593;&#x90FD;&#x6703;&#x662F;&#x5728;&#x64B0;&#x5BEB; functions&#x3002;</p>
+<p>&#x9019;&#x8B93;&#x9077;&#x5165;&#x9084;&#x662F;&#x9077;&#x51FA; Redux &#x90FD;&#x5F88;&#x7C21;&#x55AE;&#x3002;
+&#x6211;&#x5011;&#x4E0D;&#x60F3;&#x8981;&#x628A;&#x4F60;&#x7D81;&#x5728;&#x4E0A;&#x9762;&#xFF01;</p>
+<h2 id="%E5%BE%9E-flux">&#x5F9E; Flux</h2>
+<p><a href="../Glossary.html#reducer">Reducers</a> &#x64F7;&#x53D6;&#x4E86; Flux Stores &#x7684;&#x300C;&#x672C;&#x8CEA;&#x300D;&#xFF0C;&#x6240;&#x4EE5;&#x7121;&#x8AD6;&#x4F60;&#x662F;&#x4F7F;&#x7528; <a href="http://github.com/acdlite/flummox" target="_blank">Flummox</a>&#x3001;<a href="http://github.com/goatslacker/alt" target="_blank">Alt</a>&#x3001;<a href="https://github.com/facebook/flux" target="_blank">&#x50B3;&#x7D71; Flux</a>&#xFF0C;&#x6216;&#x4EFB;&#x4F55;&#x5176;&#x4ED6;&#x7684; Flux library&#xFF0C;&#x6F38;&#x6F38;&#x7684;&#x9077;&#x79FB;&#x4E00;&#x500B;&#x5DF2;&#x5B58;&#x5728;&#x7684; Flux &#x5C08;&#x6848;&#x5230; Redux &#x90FD;&#x662F;&#x53EF;&#x4EE5;&#x7684;&#x3002;</p>
+<p>&#x540C;&#x6A23;&#x7684;&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x53CD;&#x5411;&#x7684;&#x4F9D;&#x7167;&#x4E00;&#x6A23;&#x7684;&#x6B65;&#x9A5F;&#xFF0C;&#x4F86;&#x5F9E; Redux &#x9077;&#x79FB;&#x5230;&#x4E0A;&#x8FF0;&#x4EFB;&#x4F55;&#x7684;&#x9019;&#x4E9B; libraries&#x3002;</p>
+<p>&#x4F60;&#x7684;&#x6D41;&#x7A0B;&#x6703;&#x770B;&#x8D77;&#x4F86;&#x50CF;&#x9019;&#x6A23;&#xFF1A;</p>
+<ul>
+<li><p>&#x5EFA;&#x7ACB;&#x4E00;&#x500B;&#x53EB;&#x505A; <code>createFluxStore(reducer)</code> &#x7684; function&#xFF0C;&#x5B83;&#x7528;&#x4F86;&#x5F9E; reducer function &#x5EFA;&#x7ACB;&#x4E00;&#x500B;&#x76F8;&#x5BB9;&#x65BC;&#x4F60;&#x73FE;&#x5B58;&#x61C9;&#x7528;&#x7A0B;&#x5F0F;&#x7684; Flux store&#x3002;&#x5F9E; Redux &#x5167;&#x90E8;&#x4F86;&#x8AAA;&#xFF0C;&#x5B83;&#x53EF;&#x80FD;&#x770B;&#x8D77;&#x4F86;&#x5F88;&#x50CF; <a href="../api/createStore.html"><code>createStore</code></a> (<a href="https://github.com/rackt/redux/blob/master/src/createStore.js" target="_blank">&#x539F;&#x59CB;&#x78BC;</a>) &#x7684;&#x5BE6;&#x4F5C;&#x3002;&#x5B83;&#x7684; dispatch handler &#x61C9;&#x8A72;&#x53EA;&#x91DD;&#x5C0D; action &#x53BB;&#x547C;&#x53EB; <code>reducer</code>&#x3001;&#x5132;&#x5B58; state &#x8B8A;&#x5316;&#x3001;&#x4E26;&#x767C;&#x9001; change &#x4E8B;&#x4EF6;&#x3002;</p>
+</li>
+<li><p>&#x9019;&#x8B93;&#x4F60;&#x53EF;&#x4EE5;&#x6F38;&#x6F38;&#x7684;&#x628A;&#x61C9;&#x7528;&#x7A0B;&#x5F0F;&#x4E2D;&#x7684;&#x6BCF;&#x4E00;&#x500B; Flux Store &#x6539;&#x5BEB;&#x6210; reducer&#xFF0C;&#x4F46;&#x4ECD;&#x7136; export <code>createFluxStore(reducer)</code>&#xFF0C;&#x6240;&#x4EE5;&#x61C9;&#x7528;&#x7A0B;&#x5F0F;&#x7684;&#x5269;&#x9918;&#x90E8;&#x5206;&#x4E26;&#x4E0D;&#x6703;&#x5BDF;&#x89BA;&#x5230;&#x6709;&#x4EC0;&#x9EBC;&#x4E8B;&#x767C;&#x751F;&#xFF0C;&#x4E5F;&#x53EA;&#x6703;&#x770B;&#x5230; Flux stores&#x3002;</p>
+</li>
+<li><p>&#x7576;&#x4F60;&#x6539;&#x5BEB;&#x4E86;&#x4F60;&#x7684; Stores &#x5F8C;&#xFF0C;&#x4F60;&#x5C07;&#x6703;&#x767C;&#x73FE;&#x4F60;&#x9700;&#x8981;&#x907F;&#x514D;&#x67D0;&#x4E9B; Flux &#x7684;&#x53CD;&#x6A21;&#x5F0F;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;&#x5728; Store &#x88E1;&#x9762;&#x6293;&#x53D6; API&#x3001;&#x6216;&#x5728; Stores &#x88E1;&#x9762;&#x89F8;&#x767C; actions&#x3002;&#x4E00;&#x65E6;&#x4F60;&#x628A;&#x5B83;&#x5011;&#x6539;&#x5BEB;&#x6210;&#x57FA;&#x65BC; reducers&#xFF0C;&#x4F60;&#x7684; Flux &#x7A0B;&#x5F0F;&#x78BC;&#x6703;&#x66F4;&#x5BB9;&#x6613;&#x53BB;&#x4E86;&#x89E3;&#xFF01;</p>
+</li>
+<li><p>&#x7576;&#x4F60;&#x5DF2;&#x7D93;&#x628A;&#x6240;&#x6709;&#x7684; Flux Stores &#x90FD;&#x6539;&#x6210;&#x57FA;&#x65BC; reducers &#x4E4B;&#x4E0A;&#x53BB;&#x5BE6;&#x4F5C;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x628A; Flux library &#x7F6E;&#x63DB;&#x6210;&#x4E00;&#x500B;&#x55AE;&#x4E00;&#x7684; Redux store&#xFF0C;&#x4E26;&#x85C9;&#x7531; <a href="../api/combineReducers.html"><code>combineReducers(reducers)</code></a> &#x4F86;&#x628A;&#x4F60;&#x5DF2;&#x7D93;&#x6709;&#x7684;&#x9019;&#x4E9B; reducers &#x7D50;&#x5408;&#x6210;&#x4E00;&#x500B;&#x3002;</p>
+</li>
+<li><p>&#x73FE;&#x5728;&#x53EA;&#x5269;&#x4E0B;&#x8981;&#x79FB;&#x690D; UI &#x4F86;<a href="../basics/UsageWithReact.html">&#x4F7F;&#x7528; react-redux</a> &#x6216;&#x5176;&#x4ED6;&#x985E;&#x4F3C;&#x7684;&#x6771;&#x897F;&#x3002;</p>
+</li>
+<li><p>&#x6700;&#x5F8C;&#xFF0C;&#x4F60;&#x53EF;&#x80FD;&#x6703;&#x60F3;&#x8981;&#x958B;&#x59CB;&#x4F7F;&#x7528;&#x4E00;&#x4E9B; Redux &#x7279;&#x6709;&#x7684;&#x529F;&#x80FD;&#x50CF;&#x662F; middleware &#xFF0C;&#x4F86;&#x9032;&#x4E00;&#x6B65;&#x7C21;&#x5316;&#x4F60;&#x7684;&#x975E;&#x540C;&#x6B65;&#x7A0B;&#x5F0F;&#x78BC;&#x3002;</p>
+</li>
+</ul>
+<h2 id="%E5%BE%9E-backbone">&#x5F9E; Backbone</h2>
+<p>&#x62B1;&#x6B49;&#xFF0C;&#x4F60;&#x9700;&#x8981;&#x91CD;&#x5BEB;&#x4F60;&#x7684; model layer&#x3002;
+&#x4ED6;&#x5011;&#x7684;&#x65B9;&#x5F0F;&#x5DEE;&#x592A;&#x591A;&#x4E86;&#xFF01;</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../../docs/recipes/index.html" class="navigation navigation-prev " aria-label="Previous page: Recipes"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../../docs/recipes/ReducingBoilerplate.html" class="navigation navigation-next " aria-label="Next page: 減少 Boilerplate"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../../gitbook/app.js"></script>
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-edit-link/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2},"edit-link":{"base":"https://github.com/rackt/redux/tree/master","label":"Edit This Page"}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
