@@ -1,503 +1,174 @@
-redux
-=========================
+# [Redux](http://rackt.github.io/redux)
 
-[![build status](https://img.shields.io/travis/gaearon/redux/master.svg?style=flat-square)](https://travis-ci.org/gaearon/redux)
+Redux 是個給 JavaScript 應用程式所使用的可預測 state 容器。
+
+他幫助你撰寫行為一致的應用程式，可以在不同的環境下執行 (客戶端、伺服器、原生應用程式)，並且易於測試。在這之上，它提供一個很棒的開發體驗，例如[把程式碼即時編輯與時間旅行除錯器結合](https://github.com/gaearon/redux-devtools)。
+
+你可以使用 Redux 結合 [React](https://facebook.github.io/react/)，或結合其他任何的 view library。
+它非常小 (2kB) 並且沒有任何依賴套件。
+
+[![build status](https://img.shields.io/travis/rackt/redux/master.svg?style=flat-square)](https://travis-ci.org/rackt/redux)
 [![npm version](https://img.shields.io/npm/v/redux.svg?style=flat-square)](https://www.npmjs.com/package/redux)
-[![redux channel on slack](https://img.shields.io/badge/slack-redux@reactiflux-61DAFB.svg?style=flat-square)](http://www.reactiflux.com)
-
-Atomic Flux with hot reloading.
-
-**The API is likely to change a few times before we reach 1.0.**<br>
-**Its [surface area](http://www.youtube.com/watch?v=4anAwXYqLG8) is minimal so you can try it in production and report any issues.**
-
-**You can track the [new docs](https://github.com/gaearon/redux/pull/140) and the [1.0 API and terminology changes](https://github.com/gaearon/redux/pull/195).**
+[![npm downloads](https://img.shields.io/npm/dm/redux.svg?style=flat-square)](https://www.npmjs.com/package/redux)
+[![redux channel on discord](https://img.shields.io/badge/discord-%23redux%20%40%20reactiflux-61dafb.svg?style=flat-square)](https://discord.gg/0ZcbPKXt5bZ6au5t)
+[![#rackt on freenode](https://img.shields.io/badge/irc-%23rackt%20%40%20freenode-61DAFB.svg?style=flat-square)](https://webchat.freenode.net/)
 
 
-# Table of Contents
+### 推薦
 
-- [Why another Flux framework?](#why-another-flux-framework)
-  - [Philosophy & Design Goals](#philosophy--design-goals)
-- [The Talk](#the-talk)
-- [Demo](#demo)
-- [Examples](#examples)
-  - [Simple Examples](#simple-examples)
-  - [ES5 Examples](#es5-examples)
-  - [Async and Universal Examples with Routing](#async-and-universal-examples-with-routing)
-- [What does it look like?](#what-does-it-look-like)
-  - [Actions](#actions)
-  - [Stores](#stores)
-  - [Components](#components)
-    - [Dumb Components](#dumb-components)
-    - [Smart Components](#smart-components)
-    - [Decorators](#decorators)
-  - [React Native](#react-native)
-  - [Initializing Redux](#initializing-redux)
-  - [Running the same code on client and server](#running-the-same-code-on-client-and-server)
-  - [Additional customization](#additional-customization)
-- [FAQ](#faq)
-  - [How does hot reloading work?](#how-does-hot-reloading-work)
-  - [Can I use this in production?](#can-i-use-this-in-production)
-  - [How do I do async?](#how-do-i-do-async)
-  - [But there are switch statements!](#but-there-are-switch-statements)
-  - [What about `waitFor`?](#what-about-waitfor)
-  - [My views aren't updating!](#my-views-arent-updating)
-  - [How do Stores, Actions and Components interact?](#how-do-stores-actions-and-components-interact)
-- [Discussion](#discussion)
-- [Inspiration and Thanks](#inspiration-and-thanks)
+>[「我愛那些你在 Redux 做的東西」](https://twitter.com/jingc/status/616608251463909376)
+>Jing Chen，Flux 作者
 
-## Why another Flux framework?
+>[「我在 FB 的內部 JS 討論群組尋求對 Redux 的評論，並獲得了普遍的好評。真的做得非常棒。」](https://twitter.com/fisherwebdev/status/616286955693682688)
+>Bill Fisher，Flux 文件的作者
 
-Read **[The Evolution of Flux Frameworks](https://medium.com/@dan_abramov/the-evolution-of-flux-frameworks-6c16ad26bb31)** for some context.
+>[「這很酷，你藉由完全不做 Flux 來發明了一個更好的 Flux。」](https://twitter.com/andrestaltz/status/616271392930201604)
+>André Staltz，Cycle 作者
 
-### Philosophy & Design Goals
+### 開發經驗
 
-* You shouldn't need a book on functional programming to use Redux.
-* Everything (Stores, Action Creators, configuration) is hot reloadable.
-* Preserves the benefits of Flux, but adds other nice properties thanks to its functional nature.
-* Prevents some of the anti-patterns common in Flux code.
-* Works great in [universal (aka “isomorphic”)](https://medium.com/@mjackson/universal-javascript-4761051b7ae9) apps because it doesn't use singletons and the data can be rehydrated.
-* Doesn't care how you store your data: you may use JS objects, arrays, ImmutableJS, etc.
-* Under the hood, it keeps all your data in a tree, but you don't need to think about it.
-* Lets you efficiently subscribe to finer-grained updates than individual Stores.
-* Provides hooks for powerful devtools (e.g. time travel, record/replay) to be implementable without user buy-in.
-* Provides extension points so it's easy to [support promises](https://github.com/gaearon/redux/issues/99#issuecomment-112212639) or [generate constants](https://gist.github.com/skevy/8a4ffc3cfdaf5fd68739) outside the core.
-* No wrapper calls in your stores and actions. Your stuff is your stuff.
-* It's super easy to test things in isolation without mocks.
-* You can use “flat” Stores, or [compose and reuse Stores](https://gist.github.com/gaearon/d77ca812015c0356654f) just like you compose Components.
-* The API surface area is minimal.
-* Have I mentioned hot reloading yet?
+我在準備我的 React Europe 演講 [「Hot Reloading 與時間旅行」](https://www.youtube.com/watch?v=xsSnOQynTHs) 的時候撰寫了 Redux。我那時的目標是建立一個 state 管理 library，它只有最少的 API，但卻擁有完全可預測的行為，所以它可以實現 logging、hot reloading、時間旅行、universal 應用程式、記錄和重播，而不需要開發者任何其他的代價。
 
-## The Talk
+### 受到的影響
 
-Redux was demoed together with **[React Hot Loader](https://github.com/gaearon/react-hot-loader)** at React Europe.  
-Watch **[Dan Abramov's talk on Hot Reloading with Time Travel](https://www.youtube.com/watch?v=xsSnOQynTHs).**
+Redux 從 [Flux](http://facebook.github.io/flux/) 的概念發展而來，不過藉由從 [Elm](https://github.com/evancz/elm-architecture-tutorial/) 獲取線索來避免它的複雜度。
+不管你以前有沒有用過它們，只需要花幾分鐘就能入門 Redux。
 
-## Demo
+### 安裝
 
-<img src='https://s3.amazonaws.com/f.cl.ly/items/2Z2D3U260d2A311k2B0z/Screen%20Recording%202015-06-03%20at%2003.22%20pm.gif' width='500'>
-
-## Examples
-
-### Simple Examples
-
-Redux is distributed with a Counter and a TodoMVC example in its source code.
-
-First, clone the repo:
+安裝穩定版本：
 
 ```
-git clone https://github.com/gaearon/redux.git
-cd redux
+npm install --save redux
 ```
 
-Run the Counter example:
+大多數情況，你也會需要 [React 的綁定](https://github.com/rackt/react-redux)和[開發者工具](https://github.com/gaearon/redux-devtools)。
 
 ```
-cd redux/examples/counter
-npm install
-npm start
+npm install --save react-redux
+npm install --save-dev redux-devtools
 ```
 
-Run the TodoMVC example:
+這裡假設你是使用 [npm](https://www.npmjs.com/) 套件管理與一個模組 bundler，像是 [Webpack](http://webpack.github.io) 或是 [Browserify](http://browserify.org/) 來使用 [CommonJS 模組](http://webpack.github.io/docs/commonjs.html)。
 
-```
-cd ../todomvc
-npm install
-npm start
-```
+如果你還沒有使用 [npm](https://www.npmjs.com/) 或任何一個現代的模組 bundler，而且寧願使用可以讓 `Redux` 作為一個全域物件使用的單檔 [UMD](https://github.com/umdjs/umd) 編譯，你可以從 [cdnjs](https://cdnjs.com/libraries/redux) 取得一個預先編譯好的版本。對於任何重要的應用程式，我們*不*建議使用這個方法，因為大部份與 Redux 互補的 libraries 都只能在 [npm](https://www.npmjs.com/) 上取得。
 
-### ES5 Examples
+### 程式碼片段
 
-If you have not used ES6 before, check out one of these ES5 examples:
+你的應用程式的完整 state 被以一個 object tree 的形式儲存在單一一個的 *store* 裡面。
+改變 state tree 的唯一方式是去發送一個 *action*，action 是一個描述發生什麼事的物件。
+要指定 actions 要如何轉換 state tree 的話，你必須撰寫 pure *reducers*。
 
-* [redux-todomvc-es5](https://github.com/insin/redux-todomvc-es5)
-
-### Async and Universal Examples with Routing
-
-These async and [universal (aka “isomorphic”)](https://medium.com/@mjackson/universal-javascript-4761051b7ae9) examples using React Router should help you get started:
-
-* [redux-react-router-async-example](https://github.com/emmenko/redux-react-router-async-example): Work in progress. Semi-official. Only the client side. Uses React Router.
-* [react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example): Universal. Uses React Router.
-* [redux-example](https://github.com/quangbuule/redux-example): Universal. Uses Immutable, React Router.
-* [isomorphic-counter-example](https://github.com/khtdr/redux-react-koa-isomorphic-counter-example): Universal. A bare-bone implementation of the [counter example app](https://github.com/gaearon/redux/tree/master/examples/counter). Uses promises-middleware to interact with API via Koa on the server.
-* [Awesome list](https://github.com/xgrommx/awesome-redux)
-
-Don’t be shy, add your own!
-
-## What does it look like?
-
-### Actions
+就這樣！
 
 ```js
-// Still using constants...
-import { INCREMENT_COUNTER, DECREMENT_COUNTER } from '../constants/ActionTypes';
+import { createStore } from 'redux'
 
-// But action creators are pure functions returning actions
-export function increment() {
-  return {
-    type: INCREMENT_COUNTER
-  };
-}
-
-export function decrement() {
-  return {
-    type: DECREMENT_COUNTER
-  };
-}
-
-// Can also be async if you return a function
-export function incrementAsync() {
-  return dispatch => {
-    setTimeout(() => {
-      // Yay! Can invoke sync or async actions with `dispatch`
-      dispatch(increment());
-    }, 1000);
-  };
-}
-
-
-// Could also read state of a store in the callback form
-export function incrementIfOdd() {
-  return (dispatch, getState) => {
-    const { counter } = getState();
-
-    if (counter % 2 === 0) {
-      return;
-    }
-
-    dispatch(increment());
-  };
-}
-```
-
-### Stores
-```js
-// ... too, use constants
-import { INCREMENT_COUNTER, DECREMENT_COUNTER } from '../constants/ActionTypes';
-
-// what's important is that Store is a pure function,
-// and you can write it anyhow you like.
-
-// the Store signature is (state, action) => state,
-// and the state shape is up to you: you can use primitives,
-// objects, arrays, or even ImmutableJS objects.
-
-export default function counter(state = 0, action) {
-  // this function returns the new state when an action comes
+/**
+ * 這是一個 reducer，一個有 (state, action) => state signature 的 pure function。
+ * 它描述一個 action 如何把 state 轉換成下一個 state。
+ *
+ * state 的形狀取決於你：它可以是基本類型、一個陣列、一個物件，
+ * 或甚至是一個 Immutable.js 資料結構。唯一重要的部分是你
+ * 不應該改變 state 物件，而是當 state 變化時回傳一個新的物件。
+ *
+ * 在這個範例中，我們使用一個 `switch` 陳述句和字串，不過你可以使用一個 helper，
+ * 來遵照一個不同的慣例 (例如 function maps)，如果它對你的專案有意義。
+ */
+function counter(state = 0, action) {
   switch (action.type) {
-  case INCREMENT_COUNTER:
-    return state + 1;
-  case DECREMENT_COUNTER:
-    return state - 1;
+  case 'INCREMENT':
+    return state + 1
+  case 'DECREMENT':
+    return state - 1
   default:
-    return state;
-  }
-
-  // BUT THAT'S A SWITCH STATEMENT!
-  // Right. If you hate 'em, see the FAQ below.
-}
-```
-
-### Components
-
-#### Dumb Components
-
-```js
-// The dumb component receives everything using props:
-import React, { PropTypes } from 'react';
-
-export default class Counter {
-  static propTypes = {
-    increment: PropTypes.func.isRequired,
-    decrement: PropTypes.func.isRequired,
-    counter: PropTypes.number.isRequired
-  };
-
-  render() {
-    const { increment, decrement, counter } = this.props;
-    return (
-      <p>
-        Clicked: {counter} times
-        {' '}
-        <button onClick={increment}>+</button>
-        {' '}
-        <button onClick={decrement}>-</button>
-      </p>
-    );
+    return state
   }
 }
+
+// 建立一個 Redux store 來掌管你的應用程式的 state。
+// 它的 API 是 { subscribe, dispatch, getState }。
+let store = createStore(counter)
+
+// 你可以手動的去訂閱更新，或是使用跟你的 view layer 之間的綁定。
+store.subscribe(() =>
+  console.log(store.getState())
+)
+
+// 變更內部 state 的唯一方法是 dispatch 一個 action。
+// actions 可以被 serialized、logged 或是儲存並在之後重播。
+store.dispatch({ type: 'INCREMENT' })
+// 1
+store.dispatch({ type: 'INCREMENT' })
+// 2
+store.dispatch({ type: 'DECREMENT' })
+// 1
 ```
 
-#### Smart Components
-
-```js
-// The smart component may observe stores using `<Connector />`,
-// and bind actions to the dispatcher with `bindActionCreators`.
-
-import React from 'react';
-import { bindActionCreators } from 'redux';
-import { Connector } from 'redux/react';
-import Counter from '../components/Counter';
-import * as CounterActions from '../actions/CounterActions';
-
-// You can optionally specify `select` for finer-grained subscriptions
-// and retrieval. Only when the return value is shallowly different,
-// will the child component be updated.
-function select(state) {
-  return { counter: state.counter };
-}
-
-export default class CounterApp {
-  render() {
-    return (
-      <Connector select={select}>
-        {({ counter, dispatch }) =>
-          /* Yes this is child as a function. */
-          <Counter counter={counter}
-                   {...bindActionCreators(CounterActions, dispatch)} />
-        }
-      </Connector>
-    );
-  }
-}
-```
-
-#### Decorators
-
-The `@connect` decorator lets you create smart components less verbosely:
-
-```js
-import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'redux/react';
-import Counter from '../components/Counter';
-import * as CounterActions from '../actions/CounterActions';
-
-@connect(state => ({
-  counter: state.counter
-}))
-export default class CounterApp {
-  render() {
-    const { counter, dispatch } = this.props;
-    // Instead of `bindActionCreators`, you may also pass `dispatch` as a prop
-    // to your component and call `dispatch(CounterActions.increment())`
-    return (
-      <Counter counter={counter}
-               {...bindActionCreators(CounterActions, dispatch)} />
-    );
-  }
-}
-```
-
-### React Native
-
-To use Redux with React Native, just replace imports from `redux/react` with `redux/react-native`:
-
-```js
-import { bindActionCreators } from 'redux';
-import { Provider, Connector } from 'redux/react-native';
-```
-
-### Initializing Redux
+你必須指定你想要隨著被稱作 *actions* 的一般物件而發生的變更，而不是直接改變 state。接著你會寫一個被稱作 *reducer* 的特別 function，來決定每個 action 如何轉變整個應用程式的 state。
 
-The simplest way to initialize a Redux instance is to give it an object whose values are your Store functions, and whose keys are their names. You may `import *` from the file with all your Store definitions to obtain such an object:
-
-```js
-import { createRedux } from 'redux';
-import { Provider } from 'redux/react';
-import * as stores from '../stores/index';
-
-const redux = createRedux(stores);
-```
-
-Then pass `redux` as a prop to `<Provider>` component in the root component of your app, and you're all set:
-
-```js
-export default class App {
-  render() {
-    return (
-      <Provider redux={redux}>
-        {() =>
-          <CounterApp />
-        }
-      </Provider>
-    );
-  }
-}
-```
-
-### Running the same code on client and server
-
-The `redux` instance returned by `createRedux` also has the `dispatch(action)`, `subscribe()` and `getState()` methods that you may call outside the React components.
+如果你以前使用 Flux，那你需要了解一個重要的差異。Redux 沒有 Dispatcher 也不支援多個 stores。反而是只有一個唯一的 store 和一個唯一的 root reducing function。當你的應用程式變大時，你會把 root reducer 拆分成比較小的獨立 reducers 來在 state tree 的不同部分上操作，而不是添加 stores。 這就像在 React 應用程式中只有一個 root component，但是他是由許多小的 components 組合而成。
 
-You may optionally specify the initial state as the second argument to `createRedux`. This is useful for hydrating the state you received from running Redux on the server:
+這個架構用於一個計數器應用程式可能看似有點矯枉過正，不過這個模式的美妙之處就在於它如何擴展到大型且模雜的應用程式。它也啟用了非常強大的開發工具，因為它可以追蹤每一次的變更和造成變更的 action。你可以記錄使用者的 sessions 並藉由重播每個 action 來重現它們。
 
-```js
-// server
-const redux = createRedux(stores);
-redux.dispatch(MyActionCreators.doSomething()); // fire action creators to fill the state
-const state = redux.getState(); // somehow pass this state to the client
+### 文件
 
-// client
-const initialState = window.STATE_FROM_SERVER;
-const redux = createRedux(stores, initialState);
-```
+* [介紹](http://rackt.github.io/redux/docs/introduction/index.html)
+* [基礎](http://rackt.github.io/redux/docs/basics/index.html)
+* [進階](http://rackt.github.io/redux/docs/advanced/index.html)
+* [Recipes](http://rackt.github.io/redux/docs/recipes/index.html)
+* [疑難排解](http://rackt.github.io/redux/docs/Troubleshooting.html)
+* [術語表](http://rackt.github.io/redux/docs/Glossary.html)
+* [API 參考](http://rackt.github.io/redux/docs/api/index.html)
 
-### Additional customization
+想要輸出成 PDF、ePub 和 MOBI 以方便離線閱讀的話，關於如何產生它們的說明，請參閱：[paulkogel/redux-offline-docs](https://github.com/paulkogel/redux-offline-docs)。
 
-There is also a longer way to do the same thing, if you need additional customization.
+### 範例
 
-This:
+* [Counter](http://rackt.github.io/redux/docs/introduction/Examples.html#counter) ([原始碼](https://github.com/rackt/redux/tree/master/examples/counter))
+* [TodoMVC](http://rackt.github.io/redux/docs/introduction/Examples.html#todomvc) ([原始碼](https://github.com/rackt/redux/tree/master/examples/todomvc))
+* [Todos with Undo](http://rackt.github.io/redux/docs/introduction/Examples.html#todos-with-undo) ([原始碼](https://github.com/rackt/redux/tree/master/examples/todos-with-undo))
+* [Async](http://rackt.github.io/redux/docs/introduction/Examples.html#async) ([原始碼](https://github.com/rackt/redux/tree/master/examples/async))
+* [Universal](http://rackt.github.io/redux/docs/introduction/Examples.html#universal) ([原始碼](https://github.com/rackt/redux/tree/master/examples/universal))
+* [Real World](http://rackt.github.io/redux/docs/introduction/Examples.html#real-world) ([原始碼](https://github.com/rackt/redux/tree/master/examples/real-world))
+* [Shopping Cart](http://rackt.github.io/redux/docs/introduction/Examples.html#shopping-cart) ([原始碼](https://github.com/rackt/redux/tree/master/examples/shopping-cart))
 
-```js
-import { createRedux } from 'redux';
-import * as stores from '../stores/index';
+如果你不熟悉 NPM 生態系並在讓專案運作起來時遇到了困難，或是你不確定要在哪裡貼上上面的程式碼片段，請查看 [simplest-redux-example](https://github.com/jackielii/simplest-redux-example)，它把 Redux 和 React、Browserify 結合在一起。
 
-const redux = createRedux(stores);
-```
+### 討論
 
-is in fact a shortcut for this:
+加入 [Reactiflux](http://www.reactiflux.com) Discord 社群的 [#redux](https://discord.gg/0ZcbPKXt5bZ6au5t) 頻道。
 
-```js
-import { createRedux, createDispatcher, composeStores } from 'redux';
-import thunkMiddleware from 'redux/lib/middleware/thunk';
-import * as stores from '../stores/index';
+### 致謝
 
-// Compose all your Stores into a single Store function with `composeStores`:
-const store = composeStores(stores);
+* [Elm 架構](https://github.com/evancz/elm-architecture-tutorial) 關於如何用 reducers 來更新 state 的偉大介紹；
+* [Turning the database inside-out](http://www.confluent.io/blog/turning-the-database-inside-out-with-apache-samza/) 啟發我的心；
+* [Developing ClojureScript with Figwheel](http://www.youtube.com/watch?v=j-kj2qwJa_E) 說服我，讓我重新評估這應該「可行」；
+* [Webpack](https://github.com/webpack/docs/wiki/hot-module-replacement-with-webpack) 的 Hot Module Replacement；
+* [Flummox](https://github.com/acdlite/flummox) 教我如何不使用 boilerplate 和 singletons 來達成 Flux；
+* [disto](https://github.com/threepointone/disto) 證明了 Stores 是 hot reloadable 的概念；
+* [NuclearJS](https://github.com/optimizely/nuclear-js) 證明這個架構可以有很好的效能；
+* [Om](https://github.com/omcljs/om) 推廣單一原子化 state 的想法；
+* [Cycle](https://github.com/cyclejs/cycle-core) 展示 function 往往是最好的工具；
+* [React](https://github.com/facebook/react) 實際的創新。
 
-// Create a Dispatcher function for your composite Store:
-const dispatcher = createDispatcher(
-  store,
-  getState => [thunkMiddleware(getState)] // Pass the default middleware
-);
+特別感謝 [Jamie Paton](http://jdpaton.github.io) 它移交了 `redux` NPM 套件名稱給我們。
 
-// Create a Redux instance using the dispatcher function:
-const redux = createRedux(dispatcher);
-```
+### 變更日誌
 
-Why would you want to write it longer? Maybe you're an advanced user and want to provide a custom Dispatcher function, or maybe you have a different idea of how to compose your Stores (or you're satisfied with a single Store). Redux lets you do all of this.
+這個專案依照 [Semantic Versioning](http://semver.org/)。
+每一個釋出版本都會伴隨它的遷移說明，被記錄在 Github [Releases](https://github.com/rackt/redux/releases) 頁面上。
 
-`createDispatcher()` also gives you the ability to specify middleware -- for example, to add support for promises. [Learn more](https://github.com/gaearon/redux/blob/master/docs/middleware.md) about how to create and use middleware in Redux.
+### 贊助者
 
-When in doubt, use the shorter option!
+在 Redux 的工作是[由社群出資](https://www.patreon.com/reactdx)。
+遇到一些卓越的公司使這可以成真：
 
-## FAQ
+* [Webflow](https://webflow.com/)
+* [Chess iX](http://www.chess-ix.com/)
 
-### How does hot reloading work?
+[查看完整的 Redux 贊助者清單。](PATRONS.md)
 
-* http://webpack.github.io/docs/hot-module-replacement.html
-* http://gaearon.github.io/react-hot-loader/
-* Literally that's it. Redux is fully driven by component props, so it works on top of React Hot Loader.
+### License
 
-### Can I use this in production?
-
-Yep. People already do that although I warned them! The API surface is minimal so migrating to 1.0 API when it comes out won't be difficult. Let us know about any issues.
-
-### How do I do async?
-
-There's already a built-in way of doing async action creators:
-
-```js
-// Can also be async if you return a function
-export function incrementAsync() {
-  return dispatch => {
-    setTimeout(() => {
-      // Yay! Can invoke sync or async actions with `dispatch`
-      dispatch(increment());
-    }, 1000);
-  };
-}
-```
-
-It's also easy to implement support for returning Promises or Observables with a custom middleware. [See an example of a custom Promise middleware.](https://github.com/gaearon/redux/issues/99#issuecomment-112212639)
-
-### But there are switch statements!
-
-`(state, action) => state` is as simple as a Store can get. You are free to implement your own `createStore`:
-
-```js
-export default function createStore(initialState, handlers) {
-  return (state = initialState, action) =>
-    handlers[action.type] ?
-      handlers[action.type](state, action) :
-      state;
-}
-```
-
-and use it for your Stores:
-
-```js
-export default createStore(0, {
-  [INCREMENT_COUNTER]: x => x + 1,
-  [DECREMENT_COUNTER]: x => x - 1
-});
-```
-
-It's all just functions.
-Fancy stuff like generating stores from handler maps, or generating action creator constants, should be in userland.
-Redux has no opinion on how you do this in your project.
-
-See also [this gist](https://gist.github.com/skevy/8a4ffc3cfdaf5fd68739) for an example implementation of action constant generation.
-
-### What about `waitFor`?
-
-I wrote a lot of vanilla Flux code and my only use case for it was to avoid emitting a change before a related Store consumes the action. This doesn't matter in Redux because the change is only emitted after *all* Stores have consumed the action.
-
-If several of your Stores want to read data from each other and depend on each other, it's a sign that they should've been a single Store instead. [See this discussion on how `waitFor` can be replaced by the composition of stateless Stores.](https://gist.github.com/gaearon/d77ca812015c0356654f)
-
-### My views aren't updating!
-
-Redux makes a hard assumption that you never mutate the state passed to you. It's easy! For example, instead of
-
-```js
-function (state, action) {
-  state.isAuthenticated = true;
-  state.email = action.email;
-  return state;
-}
-```
-
-you should write
-
-```js
-function (state, action) {
-  return {
-    ...state,
-    isAuthenticated: true,
-    email: action.email
-  };
-}
-```
-
-[Read more](https://github.com/sebmarkbage/ecmascript-rest-spread) about the spread properties ES7 proposal.
-
-### How do Stores, Actions and Components interact?
-
-Action creators are just pure functions so they don't interact with anything. Components need to call `dispatch(action)` (or use `bindActionCreators` that wraps it) to dispatch an action *returned* by the action creator.
-
-Stores are just pure functions too so they don't need to be “registered” in the traditional sense, and you can't subscribe to them directly. They're just descriptions of how data transforms. So in that sense they don't “interact” with anything either, they just exist, and are used by the dispatcher for computation of the next state.
-
-Now, the dispatcher is more interesting. You pass all the Stores to it, and it composes them into a single Store function that it uses for computation. The dispatcher is also a pure function, and it is passed as configuration to `createRedux`, the only stateful thing in Redux. By default, the default dispatcher is used, so if you call `createRedux(stores)`, it is created implicitly.
-
-To sum it up: there is a Redux instance at the root of your app. It binds everything together. It accepts a dispatcher (which itself accepts Stores), it holds the state, and it knows how to turn actions into state updates. Everything else (components, for example) subscribes to the Redux instance. If something wants to dispatch an action, they need to do it on the Redux instance. `Connector` is a handy shortcut for subscribing to a slice of the Redux instance's state and injecting `dispatch` into your components, but you don't have to use it.
-
-There is no other “interaction” in Redux.
-
-## Discussion
-
-Join the **#redux** channel of the [Reactiflux](http://reactiflux.com/) Slack community
-
-## Inspiration and Thanks
-
-* [Webpack](https://github.com/webpack/docs/wiki/hot-module-replacement-with-webpack) for Hot Module Replacement
-* [The Elm Architecture](https://github.com/evancz/elm-architecture-tutorial) for a great intro to “stateless Stores”
-* [Turning the database inside-out](http://blog.confluent.io/2015/03/04/turning-the-database-inside-out-with-apache-samza/) for blowing my mind
-* [Developing ClojureScript with Figwheel](http://www.youtube.com/watch?v=j-kj2qwJa_E) for convincing me that re-evaluation should “just work”
-* [Flummox](https://github.com/acdlite/flummox) for teaching me to approach Flux without boilerplate or singletons
-* [disto](https://github.com/threepointone/disto) for a proof of concept of hot reloadable Stores
-* [NuclearJS](https://github.com/optimizely/nuclear-js) for proving this architecture can be performant
-* [Om](https://github.com/omcljs/om) for popularizing the idea of a single state atom
-* [Cycle](https://github.com/staltz/cycle) for showing how often a function is the best tool
-* [React](https://github.com/facebook/react) for the pragmatic innovation
-
-Special thanks go to [Jamie Paton](http://jdpaton.github.io/) for handing over the `redux` NPM package name.
+MIT
