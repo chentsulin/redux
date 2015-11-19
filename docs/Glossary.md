@@ -86,7 +86,7 @@ type Middleware = (api: MiddlewareAPI) => (next: Dispatch) => Dispatch
 
 middleware 是一個 higher-order function，它把一個 [dispatch function](#dispatching-function) 拿去組合以回傳一個新的 dispatch function。它時常用來把 [async actions](#async-action) 轉換成 actions。
 
-Middleware 可以藉由 function composition 來組合。有利於紀錄 actions、執行有 side effects 的動作，例如：routing、或是把非同步的 API 呼叫轉換成一系列的同步 actions。
+Middleware 可以藉由 function composition 來組合。有利於記錄 actions、執行有 side effects 的動作，例如：routing、或是把非同步的 API 呼叫轉換成一系列的同步 actions。
 
 可以查看 [`applyMiddleware(...middlewares)`](./api/applyMiddleware.md) 來深入了解 middleware。
 
@@ -131,4 +131,4 @@ Store enhancers 跟 React 的 higher-order components 是大致相同的概念�
 
 因為 store 不是個物件實體，而只是一個 functions 的 collection，它的複製品可以簡單地被建立和調整而不會改變到原來的 store。在 [`compose`](api/compose.md) 文件中有一個範例展示了這個。
 
-你很有可能永遠也不會寫到 store enhancer，但是你可能已經使用了一個由[開發工具](https://github.com/gaearon/redux-devtools) 所提供的。這就是使 time travel 可以實現，但應用程式卻沒有意識到他發生的東西。有趣的是，[Redux middleware 的實作](api/applyMiddleware.md) 本身就是一個 store enhancer。
+你很有可能永遠也不會寫到 store enhancer，但是你可能已經使用了一個由[開發工具](https://github.com/gaearon/redux-devtools)所提供的。這就是使 time travel 可以實現，但應用程式卻沒有意識到他發生的東西。有趣的是，[Redux middleware 的實作](api/applyMiddleware.md)本身就是一個 store enhancer。

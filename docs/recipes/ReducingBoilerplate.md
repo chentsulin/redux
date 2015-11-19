@@ -4,7 +4,7 @@ Redux 的一部分是[受到 Flux 啟發](../introduction/PriorArt.md)，而 Flu
 
 ## Actions
 
-Actions 是描述應用程式中生了什麼事的一般物件，並且作為描述改變資料意圖的唯一方式。重要的是，**你必須 dispatch 的這些 actions 物件並不是 boilerplate，而是 Redux 的[基本設計決策](../introduction/ThreePrinciples.md) 其中之一**。
+Actions 是描述應用程式中生了什麼事的一般物件，並且作為描述改變資料意圖的唯一方式。重要的是，**你必須 dispatch 的這些 actions 物件並不是 boilerplate，而是 Redux 的[基本設計決策](../introduction/ThreePrinciples.md)其中之一**。
 
 有一些框架宣稱與 Flux 類似，但沒有 action 物件的觀念。在可預測性方面，這是從 Flux 或是 Redux 的一種退步。如果沒有可以 serialize 的一般物件 actions，就不可能紀錄並重播使用者的操作狀態，或是實現 [hot reloading 與時間旅行](https://www.youtube.com/watch?v=xsSnOQynTHs)。如果你仍然希望直接改變資料，那你不需要使用 Redux。
 

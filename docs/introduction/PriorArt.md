@@ -15,7 +15,7 @@ Redux 受到幾個 Flux 的重要特質所影響。就像 Flux 一樣，Redux �
 
 另一個跟 Flux 重要的不同是 **Redux 假設你永遠不會變動你的舊資料**。你可以使用一般物件或陣列來當作 state 都沒關係，但是強烈不鼓勵在 reducers 裡面變動它們。你應該總是回傳一個新的物件，而這很容易藉由[被提議成 ES7 的 object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) 達成並且它已經被 [Babel](http://babeljs.io) 實作，或是用一個像是 [Immutable](https://facebook.github.io/immutable-js) 的 library。
 
-雖然技術上*可以*[寫 impure 的 reducers](https://github.com/rackt/redux/issues/328#issuecomment-125035516) 來針對效能上的極端案例變動資料，但我們強烈不鼓勵你這樣做。一些開發用的功能像是 time travel、紀錄/重播、或是 hot reloading 將會壞掉。此外在大部份實際的應用程式中 immutability 看來並不會被提出效能問題，因為就如 [Om](https://github.com/omcljs/om) 所展示的，即使你輸在物件分配，你仍然藉由避免昂貴的重新 render 和重新計算取勝，因為多虧 reducer purity 你知道究竟什麼東西改變了。
+雖然技術上*可以*[寫 impure 的 reducers](https://github.com/rackt/redux/issues/328#issuecomment-125035516) 來針對效能上的極端案例變動資料，但我們強烈不鼓勵你這樣做。一些開發用的功能像是 time travel、記錄/重播、或是 hot reloading 將會壞掉。此外在大部份實際的應用程式中 immutability 看來並不會被提出效能問題，因為就如 [Om](https://github.com/omcljs/om) 所展示的，即使你輸在物件分配，你仍然藉由避免昂貴的重新 render 和重新計算取勝，因為多虧 reducer purity 你知道究竟什麼東西改變了。
 
 ### Elm
 
