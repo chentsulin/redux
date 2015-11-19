@@ -56,7 +56,7 @@ store 的 reducing function 將會同步的用當下 [`getState()`](#getState) �
 但是，如果你把 [`createStore`](createStore.md) 用 [`applyMiddleware`](applyMiddleware.md) 包起來，這些 middleware 用不同的方式解釋 actions，並提供對 dispatch [async actions](../Glossary.md#async-action) 的支援。Async actions 通常是一些非同步的基礎型別，像是 Promises、Observables、或是 thunks。
 
 Middleware 是由社群所創造且不會預設附帶在 Redux 裡。你需要明確的安裝像是 [redux-thunk](https://github.com/gaearon/redux-thunk) 或是 [redux-promise](https://github.com/acdlite/redux-promise) 之類的套件以使用它。你也可以建立自己的 middleware。
-姚學習如何去描述非同步的 API 呼叫、在 action creators 裡面讀取當下的 state inside、執行有 side effects 的動作、或是把它們鏈接起來按照順序執行，請查看 [`applyMiddleware`](applyMiddleware.md) 的範例。
+要學習如何去描述非同步的 API 呼叫、在 action creators 裡面讀取當下的 state inside、執行有 side effects 的動作、或是把它們鏈接起來按照順序執行，請查看 [`applyMiddleware`](applyMiddleware.md) 的範例。
 
 #### 範例
 
