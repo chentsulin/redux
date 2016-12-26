@@ -80,7 +80,7 @@ export function invalidateSubreddit(subreddit) {
 ```js
 export const REQUEST_POSTS = 'REQUEST_POSTS'
 
-export function requestPosts(subreddit) {
+function requestPosts(subreddit) {
   return {
     type: REQUEST_POSTS,
     subreddit
@@ -95,7 +95,7 @@ export function requestPosts(subreddit) {
 ```js
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 
-export function receivePosts(subreddit, json) {
+function receivePosts(subreddit, json) {
   return {
     type: RECEIVE_POSTS,
     subreddit,
@@ -331,7 +331,7 @@ function receivePosts(subreddit, json) {
 // 雖然它裡面不一樣，不過你可以就像其他的 action creator 一般使用它：
 // store.dispatch(fetchPosts('reactjs'))
 
-export function fetchPosts(subreddit) {
+function fetchPosts(subreddit) {
 
   // Thunk middleware 知道如何去處理 function。
   // 它把 dispatch method 作為參數傳遞給 function，
@@ -350,7 +350,7 @@ export function fetchPosts(subreddit) {
     // 在這個案例中，我們回傳一個 promise 以等待。
     // 這不是 thunk middleware 所必須的，不過這樣對我們來說很方便。
 
-    return fetch(`http://www.reddit.com/r/${subreddit}.json`)
+    return fetch(`https://www.reddit.com/r/${subreddit}.json`)
       .then(response => response.json())
       .then(json =>
 
@@ -439,7 +439,7 @@ function receivePosts(subreddit, json) {
 function fetchPosts(subreddit) {
   return dispatch => {
     dispatch(requestPosts(subreddit))
-    return fetch(`http://www.reddit.com/r/${subreddit}.json`)
+    return fetch(`https://www.reddit.com/r/${subreddit}.json`)
       .then(response => response.json())
       .then(json => dispatch(receivePosts(subreddit, json)))
   }

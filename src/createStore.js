@@ -28,7 +28,7 @@ export var ActionTypes = {
  * If you use `combineReducers` to produce the root reducer function, this must be
  * an object with the same shape as `combineReducers` keys.
  *
- * @param {Function} enhancer The store enhancer. You may optionally specify it
+ * @param {Function} [enhancer] The store enhancer. You may optionally specify it
  * to enhance the store with third-party capabilities such as middleware,
  * time travel, persistence, etc. The only store enhancer that ships with Redux
  * is `applyMiddleware()`.
@@ -72,14 +72,6 @@ export default function createStore(reducer, preloadedState, enhancer) {
    * @returns {any} The current state tree of your application.
    */
   function getState() {
-    if (isDispatching) {
-      throw new Error(
-        'You may not call store.getState() while the reducer is executing. ' +
-        'The reducer has already received the state as an argument. ' +
-        'Pass it down from the top reducer instead of reading it from the store.'
-      )
-    }
-
     return currentState
   }
 
@@ -111,15 +103,6 @@ export default function createStore(reducer, preloadedState, enhancer) {
       throw new Error('Expected listener to be a function.')
     }
 
-    if (isDispatching) {
-      throw new Error(
-        'You may not call store.subscribe() while the reducer is executing. ' +
-        'If you would like to be notified after the store has been updated, subscribe from a ' +
-        'component and invoke store.getState() in the callback to access the latest state. ' +
-        'See http://redux.js.org/docs/api/Store.html#subscribe for more details.'
-      )
-    }
-
     var isSubscribed = true
 
     ensureCanMutateNextListeners()
@@ -128,13 +111,6 @@ export default function createStore(reducer, preloadedState, enhancer) {
     return function unsubscribe() {
       if (!isSubscribed) {
         return
-      }
-
-      if (isDispatching) {
-        throw new Error(
-          'You may not unsubscribe from a store listener while the reducer is executing. ' +
-          'See http://redux.js.org/docs/api/Store.html#subscribe for more details.'
-        )
       }
 
       isSubscribed = false
@@ -198,7 +174,8 @@ export default function createStore(reducer, preloadedState, enhancer) {
 
     var listeners = currentListeners = nextListeners
     for (var i = 0; i < listeners.length; i++) {
-      listeners[i]()
+      var listener = listeners[i]
+      listener()
     }
 
     return action

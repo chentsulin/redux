@@ -34,6 +34,8 @@ npm install --save express react-redux
 
 下面是我們伺服器端會看起來像怎樣的概述。我們將會藉由 [app.use](http://expressjs.com/api.html#app.use) 設置一個 [Express middleware](http://expressjs.com/guide/using-middleware.html) 來處理所有進到我們伺服器的請求。如果你不熟悉 Express 或是 middleware，只要知道我們的 handleRender function 將會在每次伺服器收到請求時被呼叫就可以了。
 
+另外，正因為我們使用 ES6 和 JSX 語法，我們將需要 [Babel](https://babeljs.io/) (參考這個範例[使用 Babel 來建立 Node 伺服器](https://github.com/babel/example-node-server)) 來編譯和 [React preset](https://babeljs.io/docs/plugins/preset-react/)。
+
 ##### `server.js`
 
 ```js
@@ -109,6 +111,8 @@ function renderFullPage(html, preloadedState) {
       <body>
         <div id="root">${html}</div>
         <script>
+          // WARNING: See the following for Security isues with this approach:
+          // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
           window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState)}
         </script>
         <script src="/static/bundle.js"></script>
@@ -139,7 +143,7 @@ import App from './containers/App'
 import counterApp from './reducers'
 
 // 從一個被注入進去伺服器產生的 HTML 的全域變數取得 state
-const initialState = window.__PRELOADED_STATE__
+const preloadedState = window.__PRELOADED_STATE__
 
 // 用初始的 state 來建立 Redux store
 const store = createStore(counterApp, preloadedState)
@@ -152,7 +156,7 @@ render(
 )
 ```
 
-你可以設置你選擇的建置工具 (Webpack、Browserify、等等) 來編譯一個 bundle 的檔案到 `dist/bundle.js`。
+你可以設置你選擇的建置工具 (Webpack、Browserify、等等) 來編譯一個 bundle 的檔案到 `static/bundle.js`。
 
 在頁面載入時，bundle 的檔案將會被啟動並且 [`ReactDOM.render()`](https://facebook.github.io/react/docs/top-level-api.html#reactdom.render) 將會抓到從伺服器 render 的 HTML 上的 `data-react-id` 屬性。這將會把我們新啟動的 React 實體連接到在伺服器上使用的 virtual DOM。因為我們有給 Redux store 一樣的初始 state 而且使用一樣的程式碼在我們所有的 view component 上，所以結果會是一樣的 DOM。
 

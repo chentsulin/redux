@@ -1,6 +1,7 @@
 # <a href='http://redux.js.org'><img src='https://camo.githubusercontent.com/f28b5bc7822f1b7bb28a96d8d09e7d79169248fc/687474703a2f2f692e696d6775722e636f6d2f4a65567164514d2e706e67' height='60'></a>
 
-Redux 是個給 JavaScript 應用程式所使用的可預測 state 容器（如果你正在尋找一個 WordPress 框架，請查看 [Redux Framework](https://reduxframework.com/)）。
+Redux 是個給 JavaScript 應用程式所使用的可預測 state 容器。
+（如果你正在尋找一個 WordPress 框架，請查看 [Redux Framework](https://reduxframework.com/)。）
 
 他幫助你撰寫行為一致的應用程式，可以在不同的環境下執行 (客戶端、伺服器、原生應用程式)，並且易於測試。在這之上，它提供一個很棒的開發體驗，例如[把程式碼即時編輯與時間旅行除錯器結合](https://github.com/gaearon/redux-devtools)。
 
@@ -14,8 +15,8 @@ Redux 是個給 JavaScript 應用程式所使用的可預測 state 容器（如�
 [![#rackt on freenode](https://img.shields.io/badge/irc-%23rackt%20%40%20freenode-61DAFB.svg?style=flat-square)](https://webchat.freenode.net/)
 [![Changelog #187](https://img.shields.io/badge/changelog-%23187-lightgrey.svg?style=flat-square)](https://changelog.com/187)
 
->**新的東西！從 Redux 的作者學習它：
->[Getting Started with Redux](https://egghead.io/series/getting-started-with-redux) (三十部免費影片)**
+>**從 Redux 的作者學習 Redux：**
+>**[Getting Started with Redux](https://egghead.io/series/getting-started-with-redux) (三十部免費影片)**
 
 ### 推薦
 
@@ -27,6 +28,11 @@ Redux 是個給 JavaScript 應用程式所使用的可預測 state 容器（如�
 
 >[「這很酷，你藉由完全不做 Flux 來發明了一個更好的 Flux。」](https://twitter.com/andrestaltz/status/616271392930201604)
 >André Staltz，Cycle 作者
+
+### 在進一步使用 Redux 之前
+
+>**也許你也可以閱讀為什麼你可能不需要 Redux：**  
+>**[「You Might Not Need Redux」](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367)**
 
 ### 開發經驗
 
@@ -46,11 +52,11 @@ npm install --save redux
 ```
 
 這裡假設你是使用 [npm](https://www.npmjs.com/) 作為你的套件管理器。
-若不是的話，你可以[在 npmcdn 取得這些檔案](https://npmcdn.com/redux/)並下載它們，或是將套件管理器指向它們。
+若不是的話，你可以[在 unpkg 取得這些檔案](https://unpkg.com/redux/)並下載它們，或是將套件管理器指向它們。
 
 最常見的是人們將 Redux 作為 [CommonJS](http://webpack.github.io/docs/commonjs.html) 模組中的一個 collection 使用。當你在 [Webpack](http://webpack.github.io)、[Browserify](http://browserify.org/) 或 Node 環境中 import `redux` 時就能取得此模組。若你願意冒風險使用 [Rollup](http://rollupjs.org)，我們也同樣支援它。
 
-如果你不想使用模組 bundler 也沒關係。`redux` npm 套件的 [`dist` 資料夾](https://npmcdn.com/redux/dist/)包含了已編譯之 production 與 development 的 [UMD](https://github.com/umdjs/umd) build。你可以不透過 bundler 直接使用它們，也因此它們與許多熱門的 JavaScript 模組 loader 及環境相容。舉個例子，你可以將一個 UMD build 作為 [`<script>` 標籤](https://npmcdn.com/redux/dist/redux.js)放入網頁中，或[透過 Bower 進行安裝](https://github.com/reactjs/redux/pull/1181#issuecomment-167361975)。UMD build 讓 Redux 能夠作為 `window.Redux` 全域變數進行使用。
+如果你不想使用模組 bundler 也沒關係。`redux` npm 套件的 [`dist` 資料夾](https://unpkg.com/redux/dist/)包含了已編譯之 production 與 development 的 [UMD](https://github.com/umdjs/umd) build。你可以不透過 bundler 直接使用它們，也因此它們與許多熱門的 JavaScript 模組 loader 及環境相容。舉個例子，你可以將一個 UMD build 作為 [`<script>` 標籤](https://unpkg.com/redux/dist/redux.js)放入網頁中，或[透過 Bower 進行安裝](https://github.com/reactjs/redux/pull/1181#issuecomment-167361975)。UMD build 讓 Redux 能夠作為 `window.Redux` 全域變數進行使用。
 
 Redux 的原始碼由 ES2015 撰寫而成，但是我們預先編譯了 CommonJS 及 UMD build 兩種 ES5 版本，讓它們可以運作於[任何現代的瀏覽器](http://caniuse.com/#feat=es5)。你不必使用 Babel 或模組 bundler 即可[開始使用 Redux](https://github.com/reactjs/redux/blob/master/examples/counter-vanilla/index.html)。
 
@@ -102,7 +108,7 @@ function counter(state = 0, action) {
 // 它的 API 是 { subscribe, dispatch, getState }。
 let store = createStore(counter)
 
-// 你可以手動的去訂閱更新，或是使用跟你的 view layer 之間的綁定。
+// 在 response state 改變時，你可以使用 subscribe() 來更新你的 UI。
 // 通常你會使用一個 view 綁定 library（例如：React Redux），而不是直接 subscribe()。
 // 然而也可以很方便的將目前狀態儲存在 localStorage。
 store.subscribe(() =>

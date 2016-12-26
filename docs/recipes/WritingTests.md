@@ -4,17 +4,17 @@
 
 ### 設置
 
-我們推薦用 [Mocha](http://mochajs.org/) 作為測試引擎。
+我們推薦用 [Jest](http://facebook.github.io/jest/) 作為測試引擎。
 注意，因為它運行在 Node 環境中，所以你不會存取到 DOM。
 
 ```
-npm install --save-dev mocha
+npm install --save-dev jest
 ```
 
-要結合 [Babel](http://babeljs.io) 一起使用的話，你必須先安裝 `babel-register`：
+要結合 [Babel](http://babeljs.io) 一起使用的話，你必須先安裝 `babel-jest`：
 
 ```js
-npm install --save-dev babel-register
+npm install --save-dev babel-jest
 ```
 
 並在 `.babelrc` 內設定使用 ES2015 功能：
@@ -32,7 +32,7 @@ npm install --save-dev babel-register
   ...
   "scripts": {
     ...
-    "test": "mocha --compilers js:babel-register --recursive",
+    "test": "jest",
     "test:watch": "npm test -- --watch"
   },
   ...
@@ -58,7 +58,6 @@ export function addTodo(text) {
 可以像這樣測試：
 
 ```js
-import expect from 'expect'
 import * as actions from '../../actions/TodoActions'
 import * as types from '../../constants/ActionTypes'
 
@@ -81,6 +80,8 @@ describe('actions', () => {
 #### 範例
 
 ```js
+import fetch from 'isomorphic-fetch';
+
 function fetchTodosRequest() {
   return {
     type: FETCH_TODOS_REQUEST
@@ -117,7 +118,7 @@ export function fetchTodos() {
 ```js
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import * as actions from '../../actions/counter'
+import * as actions from '../../actions/TodoActions'
 import * as types from '../../constants/ActionTypes'
 import nock from 'nock'
 import expect from 'expect' // 你可以使用任何的測試函式庫
@@ -186,7 +187,6 @@ export default function todos(state = initialState, action) {
 可以像這樣測試：
 
 ```js
-import expect from 'expect'
 import reducer from '../../reducers/todos'
 import * as types from '../../constants/ActionTypes'
 
@@ -298,14 +298,13 @@ export default Header
 可以像這樣測試：
 
 ```js
-import expect from 'expect'
 import React from 'react'
 import { shallow } from 'enzyme'
 import Header from '../../components/Header'
 
 function setup() {
   const props = {
-    addTodo: expect.createSpy()
+    addTodo: jest.fn()
   }
 
   const enzymeWrapper = shallow(<Header {...props} />)
@@ -334,9 +333,9 @@ describe('components', () => {
       const { enzymeWrapper, props } = setup()
       const input = enzymeWrapper.find('TodoTextInput')
       input.props().onSave('')
-      expect(props.addTodo.calls.length).toBe(0)
+      expect(props.addTodo.mock.calls.length).toBe(0)
       input.props().onSave('Use Redux')
-      expect(props.addTodo.calls.length).toBe(1)
+      expect(props.addTodo.mock.calls.length).toBe(1)
     })
   })
 })
@@ -408,7 +407,6 @@ Middleware function 包裝了 Redux 中 `dispatch` 呼叫的行為，所以要�
 #### 範例
 
 ```js
-import expect from 'expect'
 import * as types from '../../constants/ActionTypes'
 import singleDispatch from '../../middleware/singleDispatch'
 

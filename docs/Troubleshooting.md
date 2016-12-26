@@ -119,6 +119,8 @@ return state.map((todo, index) => {
 
 需要注意的是，實驗性的語言功能有可能會變動。
 
+也需要留意被深度拷貝的巢狀 state 物件。`_.extend` 和 `Object.assign` 兩者可以淺拷貝 state。關於如何處理巢狀的 state 物件，請參閱[更新巢狀物件](/docs/recipes/reducers/ImmutableUpdatePatterns.md#updating-nested-objects)。
+
 #### 不要忘記呼叫 [`dispatch(action)`](api/Store.md#dispatch)
 
 如果你定義了一個 action creator，呼叫它*不*會自動的 dispatch action。例如，這段程式碼什麼事都不會做：

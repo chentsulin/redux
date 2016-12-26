@@ -6,7 +6,7 @@ Redux 暴露出來的 API 非常少。Redux 定義一系列的介面給你去實
 
 ### 頂層 Exports
 
-* [createStore(reducer, [preloadedState])](createStore.md)
+* [createStore(reducer, [preloadedState], [enhancer])](createStore.md)
 * [combineReducers(reducers)](combineReducers.md)
 * [applyMiddleware(...middlewares)](applyMiddleware.md)
 * [bindActionCreators(actionCreators, dispatch)](bindActionCreators.md)

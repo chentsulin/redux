@@ -14,7 +14,7 @@
 npm install --save react-redux
 ```
 
-如果你沒有使用npm，你可以從 npmcdn 取得最新的 UMD build (不論是 [development](https://npmcdn.com/react-redux@latest/dist/react-redux.js) 或是 [production](https://npmcdn.com/react-redux@latest/dist/react-redux.min.js) 的 build)。如果你把它經由一個 `<script>` 標籤加入你的頁面，UMD build 就會 export 一個名為 `window.ReactRedux` 的全域變數。
+如果你沒有使用 npm，你可以從 npmcdn 取得最新的 UMD build (不論是 [development](https://unpkg.com/react-redux@latest/dist/react-redux.js) 或是 [production](https://unpkg.com/react-redux@latest/dist/react-redux.min.jss) 的 build)。如果你把它經由一個 `<script>` 標籤加入你的頁面，UMD build 就會 export 一個名為 `window.ReactRedux` 的全域變數。
 
 ## Presentational 和 Container Component
 

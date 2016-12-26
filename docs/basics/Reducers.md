@@ -115,7 +115,7 @@ function todoApp(state = initialState, action) {
 
 ## 處理更多 Action
 
-我們有兩個以上的 action 要處理！讓我們來擴充 reducer 以處理 `ADD_TODO`。
+我們有兩個以上的 action 要處理！就像我們做的 `SET_VISIBILITY_FILTER`，我們將 import `ADD_TODO` 和 `TOGGLE_TODO` action 並讓我們來擴充 reducer 以處理 `ADD_TODO`。
 
 ```js
 function todoApp(state = initialState, action) {
@@ -246,13 +246,19 @@ function todoApp(state = initialState, action) {
 
 讓我們來探索更多有關 reducer composition 的部分。我們也能抽出一個只管理 `visibilityFilter` 的 reducer 嗎？我們可以：
 
+以下我們使用 import，讓我們使用 [ES6 物件解構](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)來宣告 `SHOW_ALL`：
+```js
+const { SHOW_ALL } = VisibilityFilters;
+```
+
+接著：
 ```js
 function visibilityFilter(state = SHOW_ALL, action) {
   switch (action.type) {
-  case SET_VISIBILITY_FILTER:
-    return action.filter
-  default:
-    return state
+    case SET_VISIBILITY_FILTER:
+      return action.filter
+    default:
+      return state
   }
 }
 ```

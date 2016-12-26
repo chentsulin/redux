@@ -58,7 +58,7 @@ unsubscribe()
 
 <img src='http://i.imgur.com/zMMtoMz.png' width='70%'>
 
-在我們開始撰寫 UI 之前，我們已經設定了應用程式的行為。在這個時間點，你已經可以為你的 reducer 和 action creator 撰寫測試，不過我們不會在這個教學中這樣做。你不需要 mock 任何東西，因為他們只是 function。呼叫它們，然後對它們回傳的東西做出 assertion。
+在我們開始撰寫 UI 之前，我們已經設定了應用程式的行為。在這個時間點，你已經可以為你的 reducer 和 action creator 撰寫測試，不過我們不會在這個教學中這樣做。你不需要 mock 任何東西，因為他們只是 [pure](../introduction/ThreePrinciples.md#changes-are-made-with-pure-functions) function。呼叫它們，然後對它們回傳的東西做出 assertion。
 
 ## 原始碼
 

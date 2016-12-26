@@ -18,13 +18,14 @@ Redux 是個非常小的 library，但它的介面和 API 都是精挑細選來�
 * [Official Examples](Examples.md) — 一些涵蓋不同 Redux 技術的官方範例
 * [SoundRedux](https://github.com/andrewngu/sound-redux) — 一個用 Redux 打造的 SoundCloud 客戶端
 * [grafgiti](https://github.com/mohebifar/grafgiti) — 在你的 GitHub 貢獻牆上建立 graffity
+* [React-lego](https://github.com/peter-mouland/react-lego) — 如何在每次每一個區塊插入 React
 
 ### 教學和文章
 
 * [Redux Tutorial](https://github.com/happypoulp/redux-tutorial)
 * [Redux Egghead Course Notes](https://github.com/tayiorbeii/egghead.io_redux_course_notes)
 * [Integrating Data with React Native](http://makeitopen.com/tutorials/building-the-f8-app/data/)
-* [What the Flux?! Let’s Redux.](https://blog.andyet.com/2015/08/06/what-the-flux-lets-redux)
+* [What the Flux?! Let's Redux.](https://blog.andyet.com/2015/08/06/what-the-flux-lets-redux)
 * [Leveling Up with React: Redux](https://css-tricks.com/learning-react-redux/)
 * [A cartoon intro to Redux](https://code-cartoons.com/a-cartoon-intro-to-redux-3afb775501a6)
 * [Understanding Redux](http://www.youhavetolearncomputers.com/blog/2015/9/15/a-conceptual-overview-of-redux-or-how-i-fell-in-love-with-a-javascript-state-container)
@@ -55,6 +56,8 @@ Redux 是個非常小的 library，但它的介面和 API 都是精挑細選來�
 * [backbone-redux](https://github.com/redbooth/backbone-redux) — Backbone
 * [redux-falcor](https://github.com/ekosz/redux-falcor) — Falcor
 * [deku-redux](https://github.com/troch/deku-redux) — Deku
+* [polymer-redux](https://github.com/tur-nr/polymer-redux) - Polymer
+* [ember-redux](https://github.com/toranb/ember-redux) - Ember.js
 
 ### Middleware
 
